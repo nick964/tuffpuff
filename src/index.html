@@ -6,8 +6,41 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
   <app-root></app-root>
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCycBtI9T84sLISJ_ScG4pr1Gg9NFguPWE",
+    authDomain: "tuff-puffin-movie-buffs.firebaseapp.com",
+    databaseURL: "https://tuff-puffin-movie-buffs.firebaseio.com",
+    projectId: "tuff-puffin-movie-buffs",
+    storageBucket: "tuff-puffin-movie-buffs.appspot.com",
+    messagingSenderId: "489747071356",
+    appId: "1:489747071356:web:bd9c50b568a81c755324f9",
+    measurementId: "G-X1KHX3L107"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+
 </body>
 </html>
