@@ -3,7 +3,7 @@
 export class Score {
 
   comment: string;
-  value: string;
+  score: string;
   user: string;
 
 }

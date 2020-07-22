@@ -12,11 +12,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {AngularFireStorage, AngularFireStorageModule} from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import {MatCardModule} from '@angular/material';
+import { ScoreComponent } from './score/score.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReviewComponent
+    ReviewComponent,
+    ScoreComponent
   ],
     imports: [
         MatSliderModule,
