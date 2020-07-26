@@ -14,7 +14,25 @@ export class ScoreComponent implements OnInit {
   ngOnInit() {
     const newScores = Object.values(this.scores);
     this.scores = newScores;
+    this.setLeafArrays();
 
+  }
+
+  setLeafArrays() {
+    debugger;
+    this.scores.forEach(val => {
+      val.leafImages = new Array(5);
+      let leafCounter = val.score;
+      while (leafCounter > 0) {
+        if (leafCounter > 1) {
+          val.leafImages.push(1);
+        } else {
+          val.leafImages.push(Math.round((leafCounter + Number.EPSILON) * 100) / 100);
+        }
+        leafCounter = leafCounter - 1;
+      }
+      console.log(val.leafImages);
+    });
   }
 
 }

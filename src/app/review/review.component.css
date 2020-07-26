@@ -1,8 +1,28 @@
-.example-card {
-  max-width: 400px;
+.mat-card {
+  margin-top: 50px;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+.example-card {
+  max-width: 500px;
+}
+
+.pat-header-image {
+  background-image: url('../../assets/pat_icon.jpg');
   background-size: cover;
 }
+
+.kier-header-image {
+  background-image: url('../../assets/kier_icon.jpg');
+  background-size: cover;
+}
+
+.dietz-header-image {
+  background-image: url('../../assets/dietz_icon.jpg');
+  background-size: cover;
+}
+
+.nick-header-image {
+  background-image: url('../../assets/nick_icon.jpg');
+  background-size: cover;
+}
+

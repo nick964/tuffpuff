@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import {Review} from './models/review';
+import {StorageService} from './service/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -15,19 +16,16 @@ export class AppComponent implements OnInit {
   reviews: Review[];
   title = 'tuffin-app';
 
-  constructor(public db: AngularFireDatabase) {
+  constructor(@Inject(AngularFireDatabase) public db: AngularFireDatabase,
+              @Inject(StorageService) private realStorage: StorageService) {
     this.items = db.list('reviews').valueChanges();
   }
 
   ngOnInit(): void {
     this.items.subscribe(value => {
-      console.log(value);
-      this.reviews = value;
-    });
-  }
-
-  onSubmit() {
-    this.db.list('items').push({ content: this.itemValue});
-    this.itemValue = '';
+          console.log(value);
+          this.reviews = value;
+        });
   }
 }
+

@@ -2,6 +2,26 @@
   flex: 1 1 auto;
 }
 
-body {
-  background-image: url("/assets/burning.gif");
+.container-fluid {
+  background-image: url('../assets/darkened.gif');
+
+}
+
+.opacityLayer {
+  /*background-color: black;*/
+  /*opacity: 0.5;*/
+}
+
+.callOut {
+  display: flex;
+  justify-content: center;
+}
+
+.callOut img {
+  max-height: 500px;
+}
+.mainDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
