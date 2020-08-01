@@ -1,6 +1,6 @@
 import {Inject, Injectable, OnInit} from '@angular/core';
 import { AngularFireStorage} from '@angular/fire/storage';
-import {promise} from 'selenium-webdriver';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,6 @@ import {promise} from 'selenium-webdriver';
 export class StorageService implements OnInit {
   private basePath = '/posters';
   file: File;
-  imageMap: Map<string, string> = new Map();
   url = '';
 
   constructor(@Inject(AngularFireStorage) private storage: AngularFireStorage) {

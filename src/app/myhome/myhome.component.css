@@ -2,10 +2,12 @@
   flex: 1 1 auto;
 }
 
-.container-fluid {
-  background-image: url('../assets/darkened.gif');
-}
 
+
+.opacityLayer {
+  /*background-color: black;*/
+  /*opacity: 0.5;*/
+}
 
 .callOut {
   display: flex;

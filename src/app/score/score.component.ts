@@ -19,7 +19,6 @@ export class ScoreComponent implements OnInit {
   }
 
   setLeafArrays() {
-    debugger;
     this.scores.forEach(val => {
       val.leafImages = new Array(5);
       let leafCounter = val.score;
