@@ -15,6 +15,7 @@ import { SignupComponent } from './signup/signup.component';
 import { MaterialModule} from './material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyhomeComponent } from './myhome/myhome.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MyhomeComponent } from './myhome/myhome.component';
         AppRoutingModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
-       FormsModule,
+        FormsModule,
+        FlexLayoutModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         AngularFireStorageModule,
