@@ -16,6 +16,7 @@ import { MaterialModule} from './material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyhomeComponent } from './myhome/myhome.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ScoreComponent,
     LoginComponent,
     SignupComponent,
-    MyhomeComponent
+    MyhomeComponent,
+    AddReviewComponent
   ],
     imports: [
         MaterialModule,

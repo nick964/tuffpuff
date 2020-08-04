@@ -3,9 +3,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
-import {MatButtonModule, MatCardModule, MatSidenavModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatSidenavModule} from '@angular/material';
 import { MatInputModule} from '@angular/material/';
 import {MatSelectModule} from '@angular/material/';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 const modules = [
   MatCardModule,
@@ -16,7 +17,10 @@ const modules = [
   MatToolbarModule,
   MatFormFieldModule,
   MatSidenavModule,
-  MatButtonModule
+  MatButtonModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatFileUploadModule
 ];
 
 @NgModule({
