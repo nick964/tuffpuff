@@ -21,20 +21,19 @@ export class UploadService {
   private basePath = 'posters/';
   pushUpload(upload: Upload) {
     debugger;
-    const storageRef = this.af.ref(this.basePath);
-
-    const otherRef = storageRef.child(this.basePath + upload.file.name);
+    const storageRef = this.af.ref(this.basePath+ upload.file.name);
 
     const task = this.af.upload(this.basePath + upload.file.name, upload.file);
     task.snapshotChanges().pipe(
       finalize(() => {
-       storageRef.getDownloadURL().subscribe(huh => {
-         console.log('im in here');
-         console.log(huh);
-       });
+         console.log('done uploading');
+         const whatIs = storageRef.getDownloadURL();
+         console.log(whatIs);
+
       })
     ).subscribe(complete => {
-      console.log('in end subscribe');
+      console.log('uploading');
+      upload.progress = ((complete.bytesTransferred / complete.totalBytes) * 100);
       console.log(complete);
     },
       error =>  {
