@@ -18,6 +18,7 @@ import { MyhomeComponent } from './myhome/myhome.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AddReviewComponent } from './add-review/add-review.component';
 import { AddScoreComponent } from './add-score/add-score.component';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AddScoreComponent } from './add-score/add-score.component';
     imports: [
         MaterialModule,
         BrowserModule,
+        MatInputModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,

@@ -12,15 +12,23 @@ export class ReviewComponent implements OnInit {
   @Input() review: Review;
   scores: Score[];
   public imagePath: any;
+  selectedAvatar: string;
 
   constructor(@Inject(StorageService) private realStorage: StorageService) { }
 
   ngOnInit() {
+    this.setSelectedImg();
     this.realStorage.getPosterImage(this.review.movie.img).then(value => {
       this.review.img = value;
     });
 
 
+  }
+
+  setSelectedImg() {
+    if (this.review.selectedBy) {
+
+    }
   }
 
 

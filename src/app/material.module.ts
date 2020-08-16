@@ -4,13 +4,12 @@ import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
 import {MatButtonModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatSidenavModule} from '@angular/material';
-import { MatInputModule} from '@angular/material/';
 import {MatSelectModule} from '@angular/material/';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const modules = [
   MatCardModule,
-  MatInputModule,
   MatSelectModule,
   MatIconModule,
   MatSliderModule,
@@ -20,7 +19,8 @@ const modules = [
   MatButtonModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatFileUploadModule
+  MatFileUploadModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

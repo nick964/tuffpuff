@@ -13,6 +13,7 @@ export class AddReviewComponent implements OnInit {
   form: FormGroup = new FormGroup({
     title: new FormControl(''),
     dayWatched: new FormControl(new Date()),
+    uploadPoster: new FormControl('')
   });
 
   @Input() error: string | null;
@@ -36,6 +37,7 @@ export class AddReviewComponent implements OnInit {
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
+    this.uploadSingle();
   }
   upload(event) {
     // create a random id

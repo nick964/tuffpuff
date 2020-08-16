@@ -6,7 +6,7 @@
   max-width: 500px;
 }
 
-.pat-header-image {
+:host ::ng-deep .pat-header-image {
   background-image: url('../../assets/pat_icon.jpg');
   background-size: cover;
 }

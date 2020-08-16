@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {AngularFireStorage} from '@angular/fire/storage';
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 import {Upload} from '../models/upload';
-import {finalize} from 'rxjs/operators';
+import {finalize, map, tap} from 'rxjs/operators';
+import UploadTask = firebase.storage.UploadTask;
 
 
 
@@ -11,28 +12,34 @@ import {finalize} from 'rxjs/operators';
 })
 export class UploadService {
 
-  private basePath = '/uploads';
-  private uploadTake: af.storage.UploadTask;
+
 
 
   constructor(private af: AngularFireStorage, private db: AngularFireDatabase) { }
 
+
+  private basePath = 'posters/';
   pushUpload(upload: Upload) {
-    const storageRef = this.af.storage.ref();
-    this.uploadTake = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
+    debugger;
+    const storageRef = this.af.ref(this.basePath);
 
-    this.uploadTake.on(this.af.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) => {
-        upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      },
-      (error) => {
+    const otherRef = storageRef.child(this.basePath + upload.file.name);
+
+    const task = this.af.upload(this.basePath + upload.file.name, upload.file);
+    task.snapshotChanges().pipe(
+      finalize(() => {
+       storageRef.getDownloadURL().subscribe(huh => {
+         console.log('im in here');
+         console.log(huh);
+       });
+      })
+    ).subscribe(complete => {
+      console.log('in end subscribe');
+      console.log(complete);
+    },
+      error =>  {
+        console.log('error');
         console.log(error);
-      },
-      () => {
-      upload.url = this.uploadTake.snapshot.url;
-      upload.name = upload.file.name;
-
-
       });
   }
 
@@ -43,14 +50,14 @@ export class UploadService {
       }).catch(error => {
         console.log(error);
     });
-      }
+  }
 
-  private deleteFileData(key:string) {
+  private deleteFileData(key: string) {
     return this.db.list(`${this.basePath}/`).remove(key);
   }
 
   private deleteFileStorage(name: string) {
-    let storageRef = this.af.storage.ref();
+    const storageRef = this.af.storage.ref();
     storageRef.child((`${name}`)).delete();
   }
 
