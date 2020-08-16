@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
+import {Upload} from '../models/upload';
+import {UploadService} from '../service/upload.service';
 
 @Component({
   selector: 'app-add-review',
@@ -17,12 +19,24 @@ export class AddReviewComponent implements OnInit {
 
   task: AngularFireUploadTask;
   uploadProgress: any;
+  selectedFiles: FileList;
+  currentUpload: Upload;
 
-  constructor(private af: AngularFireStorage) { }
+
+  constructor(private af: AngularFireStorage, private uploadService: UploadService) { }
 
   ngOnInit() {
   }
+  uploadSingle() {
+    let file = this.selectedFiles.item(0);
+    this.currentUpload = new Upload(file);
+    this.uploadService.pushUpload(this.currentUpload);
 
+  }
+
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+  }
   upload(event) {
     // create a random id
     const randomId = Math.random().toString(36).substring(2);

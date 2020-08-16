@@ -16,20 +16,29 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <p>
-        <input class="ng-hide" id="input-file-id"  type="file" (change)="upload($event)" accept=".png,.jpg" />
-        <label for="input-file-id" class="md-button md-raised md-primary">Choose Movie Poster</label>
-      </p>
+      <mat-form-field>
+        <label>
+          <input type="file" (change)="detectFiles($event)" accept=".png,.jpg">
+        </label>
+      </mat-form-field>
+
+      <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="uploadSingle()">Upload</button>
 
       <br>
 
+      <div *ngIf="currentUpload">
+        <div class="progress">
+          <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%'}"
+        </div>
+        Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
 
+      </div>
       <p *ngIf="error" class="error">
         {{ error }}
       </p>
 
       <div class="button">
-        <button type="submit" mat-button>Login</button>
+        <button type="submit" mat-button>Add Movie</button>
       </div>
 
     </form>
