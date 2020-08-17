@@ -9,12 +9,15 @@ div {
 }
 
 .mat-sidenav-container{
+
   min-height: 93vh !important;
 }
 
-.myApp {
+.mat-drawer-container {
+  background: none !important;
+}
+body {
   background: url('../assets/darkened.gif') repeat;
-
   height: 100%;
 }
 

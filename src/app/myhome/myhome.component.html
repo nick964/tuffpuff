@@ -6,6 +6,6 @@
 
     <div class="mainDiv">
       <div class="col-md-5">
-        <app-review *ngFor="let rev of reviews" [review]="rev"></app-review>
+        <app-review *ngFor="let rev of items | async" [review]="rev"></app-review>
       </div>
     </div>

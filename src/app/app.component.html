@@ -1,4 +1,4 @@
-<div>
+<div class="tryThis">
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
       <button mat-icon-button (click)="sidenav.toggle()">
@@ -11,8 +11,9 @@
     </a>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/login">Login</a>
-      <a mat-button routerLink="/addreview">Add Movie</a>
+      <a mat-button *ngIf="!auth.loggedIn" routerLink="/login">Login</a>
+      <a mat-button *ngIf="auth.loggedIn" (click)="justLogOut()">Logout</a>
+      <a mat-button *ngIf="auth.loggedIn" routerLink="/addreview">Add Movie</a>
     </div>
 
   </mat-toolbar>
@@ -20,8 +21,9 @@
 
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
       <div fxLayout="column">
-        <a mat-button routerLink="/login">Login</a>
-        <a mat-button routerLink="/addreview">Add Movie</a>
+        <a mat-button *ngIf="!auth.loggedIn" routerLink="/login">Login</a>
+        <a mat-button *ngIf="auth.loggedIn" (click)="justLogOut()">Logout</a>
+        <a mat-button *ngIf="auth.loggedIn" routerLink="/addreview">Add Movie</a>
       </div>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>
@@ -31,3 +33,4 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+

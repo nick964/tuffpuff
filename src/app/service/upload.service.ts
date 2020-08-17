@@ -21,8 +21,7 @@ export class UploadService {
   private basePath = 'posters/';
   pushUpload(upload: Upload) {
     debugger;
-    const storageRef = this.af.ref(this.basePath+ upload.file.name);
-
+    const storageRef = this.af.ref(this.basePath + upload.file.name);
     const task = this.af.upload(this.basePath + upload.file.name, upload.file);
     task.snapshotChanges().pipe(
       finalize(() => {

@@ -17,7 +17,6 @@ export class ReviewComponent implements OnInit {
   constructor(@Inject(StorageService) private realStorage: StorageService) { }
 
   ngOnInit() {
-    this.setSelectedImg();
     this.realStorage.getPosterImage(this.review.movie.img).then(value => {
       this.review.img = value;
     });
@@ -25,11 +24,6 @@ export class ReviewComponent implements OnInit {
 
   }
 
-  setSelectedImg() {
-    if (this.review.selectedBy) {
-
-    }
-  }
 
 
 

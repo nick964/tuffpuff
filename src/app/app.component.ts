@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import {Review} from './models/review';
 import {StorageService} from './service/storage.service';
+import {AuthService} from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,15 +18,17 @@ export class AppComponent implements OnInit {
   title = 'tuffin-app';
 
   constructor(@Inject(AngularFireDatabase) public db: AngularFireDatabase,
-              @Inject(StorageService) private realStorage: StorageService) {
+              @Inject(StorageService) private realStorage: StorageService,
+              @Inject(AuthService) private auth: AuthService) {
     this.items = db.list('reviews').valueChanges();
   }
 
   ngOnInit(): void {
-    this.items.subscribe(value => {
-          console.log(value);
-          this.reviews = value;
-        });
+
+  }
+
+  justLogOut() {
+    this.auth.signOut();
   }
 }
 

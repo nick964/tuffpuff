@@ -9,13 +9,15 @@ import {AuthService} from '../service/auth.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
 
   @Input() error: string | null;
 
   @Output() submitEm = new EventEmitter();
+
+  success: string | null;
 
   constructor(private authService: AuthService) { }
 
@@ -24,7 +26,13 @@ export class LoginComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      this.submitEm.emit(this.form.value);
+      this.authService.signIn(this.form.value).then(result => {
+        if (typeof result === 'string' && result.indexOf('Error') > -1) {
+          this.error = result;
+        } else {
+          console.log(result);
+        }
+      });
     }
 
   }

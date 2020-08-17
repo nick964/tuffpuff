@@ -11,17 +11,13 @@ import {Review} from '../models/review';
 })
 export class MyhomeComponent implements OnInit {
   items: Observable<any[]>;
-  reviews: Review[];
+  reviews: any
 
   constructor(@Inject(AngularFireDatabase) public db: AngularFireDatabase,
               @Inject(StorageService) private realStorage: StorageService) {
-    this.items = db.list('reviews').valueChanges();
+    this.items = db.list('reviews', ref => ref.limitToLast(100)).valueChanges();
   }
 
   ngOnInit(): void {
-    this.items.subscribe(value => {
-      console.log(value);
-      this.reviews = value;
-    });
   }
 }
