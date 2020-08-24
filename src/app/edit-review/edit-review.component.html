@@ -1,0 +1,52 @@
+
+<div *ngIf="isLoaded && reviewToEdit; else stillLoading">
+  <mat-card>
+    <mat-card-title>Edit Review: {{reviewToEdit.movie.title}}</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="editMovie()">
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Movie Title" formControlName="title" value="{{reviewToEdit.movie.title}}">
+          </mat-form-field>
+        </p>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Date Watched</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dayWatched">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker [(ngModel)]="reviewToEdit.dateReviewed"></mat-datepicker>
+        </mat-form-field>
+
+        <br>
+
+        <img mat-card-image src="{{reviewToEdit.movie.img}}" alt="Photo of a movie poster">
+        <br>
+
+        <label>
+          <input type="file"  (change)="detectFiles($event)" accept=".png,.jpg" formControlName="uploadPoster">
+        </label>
+
+        <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="uploadSingle()">Upload</button>
+
+        <br>
+
+        <div *ngIf="currentUpload">
+          <div class="progress">
+            <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%'}"></div>
+          </div>
+          Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+
+        </div>
+        <p *ngIf="error" class="error">
+          {{ error }}
+        </p>
+
+        <div class="button">
+          <button type="submit" mat-button>Add Movie</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<ng-template #stillLoading><p>Loading...</p></ng-template>

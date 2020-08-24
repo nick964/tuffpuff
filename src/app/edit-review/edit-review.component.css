@@ -1,0 +1,13 @@
+.mat-card {
+  margin-top: 50px;
+}
+
+.example-card {
+  max-width: 500px;
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}

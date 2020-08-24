@@ -19,16 +19,17 @@ export class UploadService {
 
 
   private basePath = 'posters/';
-  pushUpload(upload: Upload) {
-    debugger;
+  pushUpload(upload: Upload): Promise<any> {
+    return new Promise((resolve, reject) =>  {
     const storageRef = this.af.ref(this.basePath + upload.file.name);
     const task = this.af.upload(this.basePath + upload.file.name, upload.file);
     task.snapshotChanges().pipe(
       finalize(() => {
          console.log('done uploading');
-         const whatIs = storageRef.getDownloadURL();
-         console.log(whatIs);
-
+         storageRef.getDownloadURL().subscribe(res => {
+           upload.url = res;
+           resolve(res);
+         });
       })
     ).subscribe(complete => {
       console.log('uploading');
@@ -38,7 +39,9 @@ export class UploadService {
       error =>  {
         console.log('error');
         console.log(error);
+        reject(error);
       });
+    });
   }
 
   deleteUpload(upload: Upload) {

@@ -2,7 +2,7 @@
   <mat-card-header>
     <div mat-card-avatar [ngClass]="review.selectedBy + '-header-image'"></div>
     <mat-card-title>{{review.movie.title}}</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <mat-card-subtitle>{{review.key}}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="{{review.img}}" alt="Photo of a movie poster">
   <mat-card-content>
@@ -15,7 +15,6 @@
     <app-score [scores]="review.scores"></app-score>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+    <button mat-button [routerLink]="['/edit', review.key]">Edit</button>
   </mat-card-actions>
 </mat-card>

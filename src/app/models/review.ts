@@ -8,5 +8,5 @@ export class Review {
   selectedBy: string;
   averageScore: number;
   scores: Score[];
-
+  key: string;
 }

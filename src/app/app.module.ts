@@ -19,6 +19,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { AddReviewComponent } from './add-review/add-review.component';
 import { AddScoreComponent } from './add-score/add-score.component';
 import {MatInputModule} from '@angular/material/input';
+import { EditReviewComponent } from './edit-review/edit-review.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatInputModule} from '@angular/material/input';
     SignupComponent,
     MyhomeComponent,
     AddReviewComponent,
-    AddScoreComponent
+    AddScoreComponent,
+    EditReviewComponent
   ],
     imports: [
         MaterialModule,
