@@ -4,6 +4,7 @@ import {StorageService} from '../service/storage.service';
 import {Observable} from 'rxjs';
 import {Review} from '../models/review';
 import {map} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-myhome',
@@ -15,7 +16,8 @@ export class MyhomeComponent implements OnInit {
   reviews: Review[] = [];
 
   constructor(@Inject(AngularFireDatabase) public db: AngularFireDatabase,
-              @Inject(StorageService) private realStorage: StorageService) {
+              @Inject(StorageService) private realStorage: StorageService,
+              private snackBar: MatSnackBar) {
     this.items = this.db.list(`reviews`)
       .snapshotChanges()
       .pipe(map(items => {             // <== new way of chaining

@@ -20,6 +20,8 @@ import { AddReviewComponent } from './add-review/add-review.component';
 import { AddScoreComponent } from './add-score/add-score.component';
 import {MatInputModule} from '@angular/material/input';
 import { EditReviewComponent } from './edit-review/edit-review.component';
+import { AlertsComponent } from './alerts/alerts.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,12 @@ import { EditReviewComponent } from './edit-review/edit-review.component';
     MyhomeComponent,
     AddReviewComponent,
     AddScoreComponent,
-    EditReviewComponent
+    EditReviewComponent,
+    AlertsComponent,
+    PopupComponent
+  ],
+  entryComponents: [
+    PopupComponent
   ],
     imports: [
         MaterialModule,

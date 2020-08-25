@@ -3,18 +3,18 @@
   <mat-card>
     <mat-card-title>Edit Review: {{reviewToEdit.movie.title}}</mat-card-title>
     <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="editMovie()">
+      <form (ngSubmit)="editMovie()">
         <p>
           <mat-form-field>
-            <input type="text" matInput placeholder="Movie Title" formControlName="title" value="{{reviewToEdit.movie.title}}">
+            <input type="text" matInput placeholder="Movie Title"  value="{{reviewToEdit.movie.title}}">
           </mat-form-field>
         </p>
 
         <mat-form-field appearance="fill">
           <mat-label>Date Watched</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dayWatched">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker [(ngModel)]="reviewToEdit.dateReviewed"></mat-datepicker>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="reviewToEdit.dateReviewed"  name="dateReviewed">
+          <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker [(ngModel)]="reviewToEdit.dateReviewed" ngDefaultControl  name="dateReviewed"></mat-datepicker>
         </mat-form-field>
 
         <br>
@@ -23,7 +23,7 @@
         <br>
 
         <label>
-          <input type="file"  (change)="detectFiles($event)" accept=".png,.jpg" formControlName="uploadPoster">
+          <input type="file"  (change)="detectFiles($event)" accept=".png,.jpg" >
         </label>
 
         <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="uploadSingle()">Upload</button>
@@ -42,11 +42,18 @@
         </p>
 
         <div class="button">
-          <button type="submit" mat-button>Add Movie</button>
+          <button type="submit" mat-button>Submit Changes</button>
         </div>
+
+        <div class="button">
+          <button type="submit" mat-button (click)="deletePopup()">Delete Review</button>
+        </div>
+
+
 
       </form>
     </mat-card-content>
   </mat-card>
 </div>
 <ng-template #stillLoading><p>Loading...</p></ng-template>
+

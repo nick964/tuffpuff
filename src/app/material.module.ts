@@ -7,6 +7,8 @@ import {MatButtonModule, MatCardModule, MatDatepickerModule, MatNativeDateModule
 import {MatSelectModule} from '@angular/material/';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const modules = [
   MatCardModule,
@@ -20,7 +22,9 @@ const modules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatFileUploadModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDialogModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

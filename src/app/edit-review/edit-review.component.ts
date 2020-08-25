@@ -1,15 +1,14 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Upload} from '../models/upload';
-import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
+import {AngularFireUploadTask} from '@angular/fire/storage';
 import {UploadService} from '../service/upload.service';
 import {AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/fire/database';
-import {AuthService} from '../service/auth.service';
 import {Review} from '../models/review';
 import {StorageService} from '../service/storage.service';
-import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {PopupComponent} from '../popup/popup.component';
 
 @Component({
   selector: 'app-edit-review',
@@ -17,11 +16,6 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./edit-review.component.css']
 })
 export class EditReviewComponent implements OnInit {
-  form: FormGroup = new FormGroup({
-    title: new FormControl(''),
-    dayWatched: new FormControl(new Date()),
-    uploadPoster: new FormControl('')
-  });
 
   items: Observable<any[]>;
   reviews: Review[] = [];
@@ -40,7 +34,7 @@ export class EditReviewComponent implements OnInit {
   fileHasUploaded = false;
   constructor(@Inject(AngularFireDatabase) public db: AngularFireDatabase,
               @Inject(StorageService) private realStorage: StorageService, private route: ActivatedRoute,
-              private uploadService: UploadService) {
+              private router: Router, private uploadService: UploadService, public dialog: MatDialog) {
     const rizoute = this.route;
     console.log(rizoute);
     this.routeId = this.route.snapshot.params.key;
@@ -48,10 +42,7 @@ export class EditReviewComponent implements OnInit {
       // map to reviews
       this.db.object(`reviews/` + this.routeId).snapshotChanges().subscribe(snap => {
         this.reviewToEdit = snap.payload.val();
-        this.realStorage.getPosterImage(this.reviewToEdit.movie.img).then(value => {
-          this.reviewToEdit.movie.img = value;
-          console.log(this.reviewToEdit);
-        });
+        this.reviewToEdit.dateReviewed = new Date(this.reviewToEdit.dateReviewed);
         this.isLoaded = true;
       });
 
@@ -63,6 +54,7 @@ export class EditReviewComponent implements OnInit {
 
   ngOnInit() {
     console.log('logging review to edit');
+
 
 
   }
@@ -82,8 +74,32 @@ export class EditReviewComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
+  deletePopup() {
+    const deletePopup = this.dialog.open(PopupComponent, {
+      data: {
+        message: 'Are you sure you want to delete the review for ' + this.reviewToEdit.movie.title
+      }
+    });
+    deletePopup.afterClosed().subscribe(result => {
+      console.log('logging result: ' + result);
+      if (result) {
+        this.db.object(`reviews/` + this.reviewToEdit.key).remove().then(res => {
+          const youDidIt = this.dialog.open(PopupComponent, {
+            data: {
+              message: 'Review has been deleted.'
+            }
+          });
+          youDidIt.afterClosed().subscribe(postDelete => {
+            this.router.navigate(['/']);
+          });
+        });
+      }
+    });
+
+  }
+
   editMovie() {
-    if (this.form.valid && this.fileHasUploaded) {
+    if (this.fileHasUploaded) {
 
       this.db.object(`reviews/` + this.routeId).update(this.reviewToEdit).then(res => {
         console.log('succes');
