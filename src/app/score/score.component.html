@@ -1,10 +1,16 @@
 <li *ngFor="let score of scores">
   <span>{{score.user}}: {{score.score}} leaves</span>
-  
+
   <div class="weedIcons">
   <span *ngFor="let leaf of score.leafImages">
 
     <img *ngIf="leaf > 0 && leaf % 1 === 0" src="../../assets/leaf_icon.png" class="weedIcon" >
+
+    <img *ngIf="leaf > 0 && leaf < 0.4" src="../../assets/lowerhalf_leaf_icon.png" class="weedIcon" >
+
+    <img *ngIf="leaf >= 0.4 && leaf < 0.6" src="../../assets/half_leaf_icon.png" class="weedIcon" >
+
+    <img *ngIf="leaf >= 0.6 && leaf < 0.99" src="../../assets/upperhalf_leaf_icon.png" class="weedIcon" >
 
 
   </span>

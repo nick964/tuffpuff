@@ -5,3 +5,7 @@ body { margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: url('assets/darkened.gif') repeat;
 }
+
+mat-card {
+  max-width: 400px;
+}

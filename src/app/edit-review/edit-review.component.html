@@ -6,9 +6,17 @@
       <form (ngSubmit)="editMovie()">
         <p>
           <mat-form-field>
-            <input type="text" matInput placeholder="Movie Title"  value="{{reviewToEdit.movie.title}}">
+            <input type="text" matInput placeholder="Movie Title"  value="{{reviewToEdit.movie.title}}" [(ngModel)]="reviewToEdit.movie.title"
+                   name="movieTitle" required>
           </mat-form-field>
         </p>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Description"  value="{{reviewToEdit.movie.description}}"
+                 [(ngModel)]="reviewToEdit.movie.description"     name="movieDescription" >
+          </textarea>
+        </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Date Watched</mat-label>
@@ -16,6 +24,8 @@
           <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker [(ngModel)]="reviewToEdit.dateReviewed" ngDefaultControl  name="dateReviewed"></mat-datepicker>
         </mat-form-field>
+
+
 
         <br>
 
@@ -37,12 +47,24 @@
           Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
 
         </div>
-        <p *ngIf="error" class="error">
-          {{ error }}
-        </p>
+        <div *ngIf="errors.length > 0">
+          <p *ngFor="let err of errors" class="error"> {{err}}</p>
+
+        </div>
+
+
+        <hr>
+
+        <div *ngIf="yourScore">
+        <h3>Your Review</h3>
+        <app-score [scores]="yourScores"> </app-score>
+        </div>
+
+        <hr>
+
 
         <div class="button">
-          <button type="submit" mat-button>Submit Changes</button>
+          <button type="submit" mat-button (click)="editMovie()">Submit Changes</button>
         </div>
 
         <div class="button">

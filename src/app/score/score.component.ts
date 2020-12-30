@@ -14,6 +14,7 @@ export class ScoreComponent implements OnInit {
   WEED_ICON_SIZE = 20;
 
   ngOnInit() {
+    debugger;
     const newScores = Object.values(this.scores);
     this.scores = newScores;
     this.setLeafArrays();

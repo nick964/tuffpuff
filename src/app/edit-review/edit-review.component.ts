@@ -9,6 +9,11 @@ import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {PopupComponent} from '../popup/popup.component';
+import {debug} from 'util';
+import {Score} from '../models/score';
+import {AuthService} from '../service/auth.service';
+import {User} from '../models/user';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-edit-review',
@@ -20,7 +25,10 @@ export class EditReviewComponent implements OnInit {
   items: Observable<any[]>;
   reviews: Review[] = [];
   review: AngularFireObject<Review[]>;
-  reviewToEdit: any;
+  reviewToEdit: Review;
+  yourScore: Score;
+  yourScores: Score[] = [];
+  errors: string[] = [];
 
 
   @Input() error: string | null;
@@ -34,15 +42,25 @@ export class EditReviewComponent implements OnInit {
   fileHasUploaded = false;
   constructor(@Inject(AngularFireDatabase) public db: AngularFireDatabase,
               @Inject(StorageService) private realStorage: StorageService, private route: ActivatedRoute,
-              private router: Router, private uploadService: UploadService, public dialog: MatDialog) {
-    const rizoute = this.route;
-    console.log(rizoute);
+              private router: Router, private uploadService: UploadService, public dialog: MatDialog,
+              private auth: AuthService) {
     this.routeId = this.route.snapshot.params.key;
     if (this.routeId) {
       // map to reviews
       this.db.object(`reviews/` + this.routeId).snapshotChanges().subscribe(snap => {
-        this.reviewToEdit = snap.payload.val();
+        this.reviewToEdit = snap.payload.val() as Review;
         this.reviewToEdit.dateReviewed = new Date(this.reviewToEdit.dateReviewed);
+        debugger;
+        if (this.reviewToEdit && this.reviewToEdit.scores && this.auth.loggedIn) {
+          const user = this.auth.user;
+          const scores = Object.values(this.reviewToEdit.scores);
+          scores.forEach(score => {
+            if (user.username.indexOf(score.user) > -1) {
+              this.yourScore = score;
+              this.yourScores.push(this.yourScore);
+            }
+          });
+        }
         this.isLoaded = true;
       });
 
@@ -53,7 +71,6 @@ export class EditReviewComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log('logging review to edit');
 
 
 
@@ -63,7 +80,6 @@ export class EditReviewComponent implements OnInit {
     const file = this.selectedFiles.item(0);
     this.currentUpload = new Upload(file);
     this.uploadService.pushUpload(this.currentUpload).then(onfufil => {
-      debugger;
       this.reviewToEdit.movie.img = onfufil;
       this.fileHasUploaded = true;
     });
@@ -99,8 +115,7 @@ export class EditReviewComponent implements OnInit {
   }
 
   editMovie() {
-    if (this.fileHasUploaded) {
-
+    if (this.checkValid()) {
       this.db.object(`reviews/` + this.routeId).update(this.reviewToEdit).then(res => {
         console.log('succes');
         console.log(res);
@@ -110,5 +125,22 @@ export class EditReviewComponent implements OnInit {
       });
 
     }
+  }
+   checkValid(): boolean {
+    this.errors = [];
+    let isValid = true;
+    if (!this.reviewToEdit.movie.title) {
+      this.errors.push('Title is missing');
+      isValid = false;
+    }
+    if (!this.reviewToEdit.dateReviewed) {
+      this.errors.push('Date reviewed is not present');
+      isValid = false;
+    }
+    if (!this.reviewToEdit.img || this.reviewToEdit.img.indexOf('firebase') === -1) {
+      this.errors.push('Image uploaded is invalid');
+      isValid = false;
+    }
+    return isValid;
   }
 }

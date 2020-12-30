@@ -4,7 +4,7 @@ import {Score} from './score';
 export class Review {
   img: string;
   movie: Movie;
-  dateReviewed: string;
+  dateReviewed: Date;
   selectedBy: string;
   averageScore: number;
   scores: Score[];
