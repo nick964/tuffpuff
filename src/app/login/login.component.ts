@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup} from '@angular/forms';
 import {AuthService} from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   success: string | null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
         if (typeof result === 'string' && result.indexOf('Error') > -1) {
           this.error = result;
         } else {
+          this.router.navigateByUrl('/');
           console.log(result);
         }
       });

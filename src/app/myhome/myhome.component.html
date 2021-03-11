@@ -6,6 +6,12 @@
 
     <div class="mainDiv">
       <div class="col-md-5">
+        <div class="input-group">
+          <div class="form-outline">
+            <input type="search" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Search</label>
+          </div>
+        </div>
         <app-review *ngFor="let rev of reviews" [review]="rev"></app-review>
       </div>
     </div>
